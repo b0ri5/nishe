@@ -4,14 +4,14 @@ set -e # Exit on error
 
 gjslint --strict \
   --nojsdoc \
+  --exclude_directories node_modules \
   --recurse .
 
 # Enforce using strict mode.
 EXIT_CODE=0
 for file in $(find . -name '*.js')
 do
-  if [[ ${file} == ./lang* ||
-        ${file} == ./build* ]]
+  if [[ ${file} == ./node_modules* ]]
   then
     continue
   fi 
