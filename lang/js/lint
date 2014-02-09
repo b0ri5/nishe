@@ -1,26 +1,11 @@
 #!/usr/bin/env bash
 
 set -e # Exit on error
+set -o xtrace
 
-gjslint --strict \
+gjslint \
+  --strict \
   --nojsdoc \
-  --exclude_directories node_modules \
-  --recurse .
-
-# Enforce using strict mode.
-EXIT_CODE=0
-for file in $(find . -name '*.js')
-do
-  if [[ ${file} == ./node_modules* ]]
-  then
-    continue
-  fi 
-
-  if [[ $(head -1 ${file}) != "'use strict';"* ]]
-  then
-    echo "${file} must begin witih 'use strict';"
-    EXIT_CODE=1
-  fi
-done
-
-exit ${EXIT_CODE}
+  --exclude_directories node_modules third_party \
+  --recurse . \
+  *.js

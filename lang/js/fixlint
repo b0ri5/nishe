@@ -2,4 +2,7 @@
 
 set -o xtrace
 
-fixjsstyle --exclude_directories node_modules --recurse .
+fixjsstyle \
+  --exclude_directories node_modules third_party \
+  --recurse . \
+  *.js

@@ -1,41 +1,41 @@
-'use strict';
+define([], function() {
+  var Partition = function() {
+    function Partition(imagesArg) {
+      var images = imagesArg;
 
-const Partition = function() {
-  function Partition(imagesArg) {
-    const images = imagesArg;
-
-    this.image = function(x) {
-      return images.get(x);
+      this.image = function(x) {
+        return images[x];
+      };
     };
-  };
-  return {
-    from: function(partition) {
-      const domain = [];
-      for (let i = 0; i < partition.length; i++) {
-        for (let j = 0; j < partition[i].length; j++) {
-          if (domain.indexOf(partition[i][j]) != -1) {
-            return undefined;
+    return {
+      from: function(partition) {
+        var domain = [];
+        for (var i = 0; i < partition.length; i++) {
+          for (var j = 0; j < partition[i].length; j++) {
+            var pij = partition[i][j];
+            if (domain.indexOf(pij) != -1) {
+              throw new Error(pij + ' has been seen twice, ' +
+                  partition + ' is not disjoint');
+            }
+            domain.push(pij);
           }
-          domain.push(partition[i][j]);
         }
-      }
-      domain.sort();
+        domain.sort();
 
-      const images = new Map();
-      let index = 0;
-      for (let i = 0; i < partition.length; i++) {
-        for (let j = 0; j < partition[i].length; j++) {
-          images.set(partition[i][j], domain[index]);
+        var images = {};
+        var index = 0;
+        for (var i = 0; i < partition.length; i++) {
+          for (var j = 0; j < partition[i].length; j++) {
+            images[partition[i][j]] = domain[index];
+          }
+          index += partition[i].length;
         }
-        index += partition[i].length;
+        return new Partition(images);
       }
-      return new Partition(images);
-    }
+    };
+  }();
+
+  return {
+    Partition: Partition
   };
-}();
-
-if (typeof exports == 'undefined') {
-  const exports = this['nishe'] = {};
-}
-
-exports.Partition = Partition;
+});

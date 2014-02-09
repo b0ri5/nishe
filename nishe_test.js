@@ -1,22 +1,42 @@
-'use strict';
+define([
+  'nishe',
+  'third_party/mocha',
+  'third_party/should'], function(nishe) {
+  describe('nishe', function() {
+    describe('Partition', function() {
+      describe('#from', function() {
+        it('should reject non partitions', function() {
+          (function() {
+            nishe.Partition.from();
+          }).should.throw();
+          (function() {
+            nishe.Partition.from([['a', 'a']]);
+          }).should.throw();
+          (function() {
+            nishe.Partition.from([['a'], ['a']]);
+          }).should.throw();
+        });
+        it('should accept valid partitions', function() {
+          nishe.Partition.from([]).should.be.ok;
+          nishe.Partition.from([['a']]).should.be.ok;
+          nishe.Partition.from([['b']]).should.be.ok;
+          nishe.Partition.from([['a', 'b']]).should.be.ok;
+          nishe.Partition.from([['a'], ['b']]).should.be.ok;
+        });
+      });
+      describe('#image', function() {
+        it('should match input', function() {
+          nishe.Partition.from([['a']]).image('a').should.equal('a');
 
-const assert = require('assert');
-const nishe = require('./nishe');
+          nishe.Partition.from([['a', 'b']]).image('a').should.equal('a');
+          nishe.Partition.from([['a', 'b']]).image('b').should.equal('a');
 
-describe('nishe', function() {
-  describe('Partition', function() {
-    describe('#image', function() {
-      it('should match input', function() {
-        assert.equal('a', nishe.Partition.from([['a']]).image('a'));
+          nishe.Partition.from([['a'], ['b']]).image('a').should.equal('a');
+          nishe.Partition.from([['a'], ['b']]).image('b').should.equal('b');
 
-        assert.equal('a', nishe.Partition.from([['a', 'b']]).image('a'));
-        assert.equal('a', nishe.Partition.from([['a', 'b']]).image('b'));
-
-        assert.equal('a', nishe.Partition.from([['a'], ['b']]).image('a'));
-        assert.equal('b', nishe.Partition.from([['a'], ['b']]).image('b'));
-
-        assert.equal('b', nishe.Partition.from([['b'], ['a']]).image('a'));
-        assert.equal('a', nishe.Partition.from([['b'], ['a']]).image('b'));
+          nishe.Partition.from([['b'], ['a']]).image('a').should.equal('b');
+          nishe.Partition.from([['b'], ['a']]).image('b').should.equal('a');
+        });
       });
     });
   });
