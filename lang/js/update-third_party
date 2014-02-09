@@ -23,3 +23,9 @@ if [[ $(diff --new-file node_modules/requirejs/require.js third_party/require.js
   echo "updating require.js"
   cp node_modules/requirejs/require.js third_party/require.js
 fi
+
+npm install git+https://github.com/wout/svg.js.git#1.0.0-rc.4
+if [[ $(diff --new-file node_modules/svg.js/dist/svg.js third_party/svg.js) ]]; then
+  echo "updating svg.js"
+  cp node_modules/svg.js/dist/svg.js third_party/svg.js
+fi
