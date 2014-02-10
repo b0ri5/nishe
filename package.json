@@ -1,12 +1,12 @@
 {
   "name": "nishe",
   "version": "0.1.0",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/b0ri5/nishe"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/b0ri5/nishe"
   },
   "devDependencies": {
-    "mocha": ">=1.17.0"
+    "mocha-phantomjs": ">=3.3.1"
   },
   "scripts": {
     "test": "lang/js/lint && mocha-phantomjs tests.html"
