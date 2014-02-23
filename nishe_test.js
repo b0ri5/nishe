@@ -38,6 +38,14 @@ define([
           nishe.Partition.from([['b'], ['a']]).image('b').should.equal('a');
         });
       });
+      describe('#domain', function() {
+        it('should match input', function() {
+          nishe.Partition.from([['a']]).domain().should.eql(['a']);
+          nishe.Partition.from([['a', 'b']]).domain().should.eql(['a', 'b']);
+          nishe.Partition.from([['a'], ['b']]).domain().should.eql(['a', 'b']);
+          nishe.Partition.from([['b'], ['a']]).domain().should.eql(['a', 'b']);
+        });
+      });
     });
   });
 });
