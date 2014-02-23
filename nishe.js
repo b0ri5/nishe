@@ -6,6 +6,11 @@ define([], function() {
       this.image = function(x) {
         return images[x];
       };
+      this.domain = function() {
+        var keys = Object.keys(images);
+        keys.sort();
+        return keys;
+      };
     };
     return {
       from: function(partition) {
