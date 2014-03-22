@@ -4,46 +4,49 @@ define([
   'third_party/should'], function(nishe) {
   describe('nishe', function() {
     describe('Partition', function() {
-      describe('#from', function() {
+      describe('constructor', function() {
         it('should reject non partitions', function() {
           (function() {
-            nishe.Partition.from();
+            new nishe.Partition();
           }).should.throw();
           (function() {
-            nishe.Partition.from([['a', 'a']]);
+            new nishe.Partition([['a', 'a']]);
           }).should.throw();
           (function() {
-            nishe.Partition.from([['a'], ['a']]);
+            new nishe.Partition([['a'], ['a']]);
+          }).should.throw();
+          (function() {
+            new nishe.Partition([[]]);
           }).should.throw();
         });
         it('should accept valid partitions', function() {
-          nishe.Partition.from([]).should.be.ok;
-          nishe.Partition.from([['a']]).should.be.ok;
-          nishe.Partition.from([['b']]).should.be.ok;
-          nishe.Partition.from([['a', 'b']]).should.be.ok;
-          nishe.Partition.from([['a'], ['b']]).should.be.ok;
+          new nishe.Partition([]).should.be.ok;
+          new nishe.Partition([['a']]).should.be.ok;
+          new nishe.Partition([['b']]).should.be.ok;
+          new nishe.Partition([['a', 'b']]).should.be.ok;
+          new nishe.Partition([['a'], ['b']]).should.be.ok;
         });
       });
       describe('#image', function() {
         it('should match input', function() {
-          nishe.Partition.from([['a']]).image('a').should.equal('a');
+          new nishe.Partition([['a']]).image('a').should.equal('a');
 
-          nishe.Partition.from([['a', 'b']]).image('a').should.equal('a');
-          nishe.Partition.from([['a', 'b']]).image('b').should.equal('a');
+          new nishe.Partition([['a', 'b']]).image('a').should.equal('a');
+          new nishe.Partition([['a', 'b']]).image('b').should.equal('a');
 
-          nishe.Partition.from([['a'], ['b']]).image('a').should.equal('a');
-          nishe.Partition.from([['a'], ['b']]).image('b').should.equal('b');
+          new nishe.Partition([['a'], ['b']]).image('a').should.equal('a');
+          new nishe.Partition([['a'], ['b']]).image('b').should.equal('b');
 
-          nishe.Partition.from([['b'], ['a']]).image('a').should.equal('b');
-          nishe.Partition.from([['b'], ['a']]).image('b').should.equal('a');
+          new nishe.Partition([['b'], ['a']]).image('a').should.equal('b');
+          new nishe.Partition([['b'], ['a']]).image('b').should.equal('a');
         });
       });
       describe('#domain', function() {
         it('should match input', function() {
-          nishe.Partition.from([['a']]).domain().should.eql(['a']);
-          nishe.Partition.from([['a', 'b']]).domain().should.eql(['a', 'b']);
-          nishe.Partition.from([['a'], ['b']]).domain().should.eql(['a', 'b']);
-          nishe.Partition.from([['b'], ['a']]).domain().should.eql(['a', 'b']);
+          new nishe.Partition([['a']]).domain().should.eql(['a']);
+          new nishe.Partition([['a', 'b']]).domain().should.eql(['a', 'b']);
+          new nishe.Partition([['a'], ['b']]).domain().should.eql(['a', 'b']);
+          new nishe.Partition([['b'], ['a']]).domain().should.eql(['a', 'b']);
         });
       });
     });
