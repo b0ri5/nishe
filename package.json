@@ -9,7 +9,7 @@
     "jshint": "*",
     "mocha": "*",
     "mocha-phantomjs": "*",
-    "requirejs": "*",
+    "requirejs": "*"
   },
   "scripts": {
     "test": "lang/js/lint && mocha-phantomjs tests.html"
