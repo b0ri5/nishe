@@ -1,35 +1,41 @@
 define([], function() {
+  'use strict';
   function Partition(arrayOfCells) {
     var domain = [];
     var images = {};
 
     (function() {
-      for (var i = 0; i < arrayOfCells.length; i++) {
-        var cell = arrayOfCells[i];
-        if (cell.length == 0) {
-          throw new Error('All cells in ' + arrayOfCells +
-              ' must be nonempty');
-        }
-        for (var j = 0; j < cell.length; j++) {
-          var x = cell[j];
-          if (domain.indexOf(x) != -1) {
-            throw new Error(x + ' has been seen twice, ' +
-                arrayOfCells + ' is not disjoint');
+      (function() {
+        for (var i = 0; i < arrayOfCells.length; i++) {
+          var cell = arrayOfCells[i];
+          if (cell.length === 0) {
+            throw new Error('All cells in ' + arrayOfCells +
+                ' must be nonempty');
           }
-          domain.push(x);
+          for (var j = 0; j < cell.length; j++) {
+            var x = cell[j];
+            if (domain.indexOf(x) != -1) {
+              throw new Error(x + ' has been seen twice, ' +
+                  arrayOfCells + ' is not disjoint');
+            }
+            domain.push(x);
+          }
         }
-      }
+      })();
+
       domain.sort();
 
-      var index = 0;
-      for (var i = 0; i < arrayOfCells.length; i++) {
-        var cell = arrayOfCells[i];
-        for (var j = 0; j < cell.length; j++) {
-          var x = cell[j];
-          images[x] = domain[index];
+      (function() {
+        var index = 0;
+        for (var i = 0; i < arrayOfCells.length; i++) {
+          var cell = arrayOfCells[i];
+          for (var j = 0; j < cell.length; j++) {
+            var x = cell[j];
+            images[x] = domain[index];
+          }
+          index += cell.length;
         }
-        index += cell.length;
-      }
+      })();
     })();
 
     this.image = function(x) {

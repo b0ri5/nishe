@@ -6,7 +6,11 @@
     "url": "https://github.com/b0ri5/nishe"
   },
   "devDependencies": {
-    "mocha-phantomjs": ">=3.3.1"
+    "chai": "*",
+    "jshint": "*",
+    "mocha": "*",
+    "mocha-phantomjs": "*",
+    "requirejs": "*"
   },
   "scripts": {
     "test": "lang/js/lint && mocha-phantomjs tests.html"

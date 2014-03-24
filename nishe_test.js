@@ -1,52 +1,51 @@
 define([
   'nishe',
-  'third_party/mocha',
-  'third_party/should'], function(nishe) {
+  'node_modules/chai/chai'], function(
+    nishe,
+    chai) {
+  'use strict';
+  var expect = chai.expect;
   describe('nishe', function() {
     describe('Partition', function() {
       describe('constructor', function() {
         it('should reject non partitions', function() {
-          (function() {
+          expect(function() {
             new nishe.Partition();
-          }).should.throw();
-          (function() {
+          }).to.throw(Error);
+          expect(function() {
             new nishe.Partition([['a', 'a']]);
-          }).should.throw();
-          (function() {
+          }).to.throw(Error);
+          expect(function() {
             new nishe.Partition([['a'], ['a']]);
-          }).should.throw();
-          (function() {
+          }).to.throw(Error);
+          expect(function() {
             new nishe.Partition([[]]);
-          }).should.throw();
-        });
-        it('should accept valid partitions', function() {
-          new nishe.Partition([]).should.be.ok;
-          new nishe.Partition([['a']]).should.be.ok;
-          new nishe.Partition([['b']]).should.be.ok;
-          new nishe.Partition([['a', 'b']]).should.be.ok;
-          new nishe.Partition([['a'], ['b']]).should.be.ok;
+          }).to.throw(Error);
         });
       });
       describe('#image', function() {
         it('should match input', function() {
-          new nishe.Partition([['a']]).image('a').should.equal('a');
+          expect(new nishe.Partition([['a']]).image('a')).to.equal('a');
 
-          new nishe.Partition([['a', 'b']]).image('a').should.equal('a');
-          new nishe.Partition([['a', 'b']]).image('b').should.equal('a');
+          expect(new nishe.Partition([['a', 'b']]).image('a')).to.equal('a');
+          expect(new nishe.Partition([['a', 'b']]).image('b')).to.equal('a');
 
-          new nishe.Partition([['a'], ['b']]).image('a').should.equal('a');
-          new nishe.Partition([['a'], ['b']]).image('b').should.equal('b');
+          expect(new nishe.Partition([['a'], ['b']]).image('a')).to.equal('a');
+          expect(new nishe.Partition([['a'], ['b']]).image('b')).to.equal('b');
 
-          new nishe.Partition([['b'], ['a']]).image('a').should.equal('b');
-          new nishe.Partition([['b'], ['a']]).image('b').should.equal('a');
+          expect(new nishe.Partition([['b'], ['a']]).image('a')).to.equal('b');
+          expect(new nishe.Partition([['b'], ['a']]).image('b')).to.equal('a');
         });
       });
       describe('#domain', function() {
         it('should match input', function() {
-          new nishe.Partition([['a']]).domain().should.eql(['a']);
-          new nishe.Partition([['a', 'b']]).domain().should.eql(['a', 'b']);
-          new nishe.Partition([['a'], ['b']]).domain().should.eql(['a', 'b']);
-          new nishe.Partition([['b'], ['a']]).domain().should.eql(['a', 'b']);
+          expect(new nishe.Partition([['a']]).domain()).to.eql(['a']);
+          expect(new nishe.Partition([['a', 'b']]).domain())
+              .to.eql(['a', 'b']);
+          expect(new nishe.Partition([['a'], ['b']]).domain())
+              .to.eql(['a', 'b']);
+          expect(new nishe.Partition([['b'], ['a']]).domain())
+              .to.eql(['a', 'b']);
         });
       });
     });
