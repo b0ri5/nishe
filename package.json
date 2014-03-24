@@ -10,7 +10,6 @@
     "mocha": "*",
     "mocha-phantomjs": "*",
     "requirejs": "*",
-    "should": "*"
   },
   "scripts": {
     "test": "lang/js/lint && mocha-phantomjs tests.html"
