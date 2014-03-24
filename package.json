@@ -6,6 +6,7 @@
     "url": "https://github.com/b0ri5/nishe"
   },
   "devDependencies": {
+    "chai": "*",
     "jshint": "*",
     "mocha": "*",
     "mocha-phantomjs": "*",
