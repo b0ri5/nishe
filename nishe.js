@@ -1,5 +1,52 @@
 define([], function() {
   'use strict';
+  function Graph(adjacencyList) {
+    var nbhds = {};
+
+    (function() {
+      var vertexes = Object.keys(adjacencyList);
+      for (var i = 0; i < vertexes.length; i++) {
+        var u = vertexes[i];
+        var nbhrs = adjacencyList[u];
+        for (var j = 0; j < nbhrs.length; j++) {
+          var v = nbhrs[j];
+          if (u == v) {
+            throw new Error('Self loop on ' + u + ' detected');
+          }
+          if (u in nbhds) {
+            if (nbhds[u].indexOf(v) == -1) {
+              nbhds[u].push(v);
+            }
+          } else {
+            nbhds[u] = [v];
+          }
+          if (v in nbhds) {
+            if (nbhds[v].indexOf(v) == -1) {
+              nbhds[v].push(u);
+            }
+          } else {
+            nbhds[v] = [u];
+          }
+        }
+      }
+    })();
+    (function() {
+      var vertexes = Object.keys(nbhds);
+      for (var i = 0; i < vertexes.length; i++) {
+        var u = vertexes[i];
+        nbhds[u].sort();
+      }
+    })();
+
+    this.nbhd = function(u) {
+      if (u in nbhds) {
+        return nbhds[u];
+      } else {
+        throw new Error(u + ' is not a vertex');
+      }
+    };
+  }
+
   function Partition(arrayOfCells) {
     var domain = [];
     var images = {};
@@ -67,6 +114,7 @@ define([], function() {
   }
 
   return {
-    Partition: Partition
+    Partition: Partition,
+    Graph: Graph
   };
 });

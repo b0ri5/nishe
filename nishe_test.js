@@ -6,6 +6,25 @@ define([
   'use strict';
   var expect = chai.expect;
   describe('nishe', function() {
+    describe('Graph', function() {
+      describe('constructor', function() {
+        it('should reject non-simple graphs', function() {
+          expect(function() {
+            new nishe.Graph();
+          }).to.throw(Error);
+          expect(function() {
+            new nishe.Graph({a: ['a']});
+          }).to.throw(Error);
+        });
+      });
+    });
+    describe('#nbhd', function() {
+      it('should match input', function() {
+        var g = new nishe.Graph({a: 'b'});
+        expect(g.nbhd('a')).to.have.members(['b']);
+        expect(g.nbhd('b')).to.have.members(['a']);
+      });
+    });
     describe('Partition', function() {
       describe('constructor', function() {
         it('should reject non partitions', function() {
