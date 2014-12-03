@@ -51,7 +51,6 @@ define([], function() {
     };
 
     this.indexes = function() {
-      console.log(indexSizes);
       var keys = Object.keys(indexSizes).map(function(i) {
         return +i;
       });
