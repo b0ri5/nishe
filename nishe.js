@@ -3,6 +3,7 @@ define([], function() {
   function Partition(arrayOfCells) {
     var domain = [];
     var images = {};
+    var indexSizes = {};
 
     (function() {
       (function() {
@@ -33,6 +34,7 @@ define([], function() {
             var x = cell[j];
             images[x] = domain[index];
           }
+          indexSizes[index] = cell.length;
           index += cell.length;
         }
       })();
@@ -46,6 +48,22 @@ define([], function() {
       var keys = Object.keys(images);
       keys.sort();
       return keys;
+    };
+
+    this.indexes = function() {
+      console.log(indexSizes);
+      var keys = Object.keys(indexSizes).map(function(i) {
+        return +i;
+      });
+      keys.sort();
+      return keys;
+    };
+
+    this.indexSize = function(index) {
+      if (index in indexSizes) {
+        return indexSizes[index];
+      }
+      throw new Error(index + ' is not a key in ' + indexSizes);
     };
   }
 
