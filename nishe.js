@@ -111,6 +111,17 @@ define([], function() {
       }
       throw new Error(index + ' is not a key in ' + indexSizes);
     };
+
+    this.cell = function(index) {
+      var cell = [];
+      for (var i = 0; i < domain.length; i++) {
+        var e = domain[i];
+        if (domain.indexOf(images[e]) == index) {
+          cell.push(e);
+        }
+      }
+      return cell;
+    };
   }
 
   return {

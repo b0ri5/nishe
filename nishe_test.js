@@ -94,6 +94,21 @@ define([
           }).to.throw(Error);
         });
       });
+      describe('#cell', function() {
+        it('should match input', function() {
+          expect(new nishe.Partition([['a']]).cell(0)).to.have.members(['a']);
+          expect(new nishe.Partition([['a', 'b']]).cell(0)).to.have.members(['a', 'b']);
+          var p = new nishe.Partition([['a'], ['b']]);
+          expect(p.cell(0)).to.have.members(['a']);
+          expect(p.cell(1)).to.have.members(['b']);
+          p = new nishe.Partition([['a', 'b'], ['c']]);
+          expect(p.cell(0)).to.have.members(['a', 'b']);
+          expect(p.cell(2)).to.have.members(['c']);
+          p = new nishe.Partition([['a'], ['b', 'c']]);
+          expect(p.cell(0)).to.have.members(['a']);
+          expect(p.cell(1)).to.have.members(['b', 'c']);
+        });
+      });
     });
   });
 });
