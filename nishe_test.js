@@ -109,6 +109,26 @@ define([
           expect(p.cell(1)).to.have.members(['b', 'c']);
         });
       });
+      describe('#sortAndSplit', function() {
+        it('should not modify partition', function() {
+          var p = new nishe.Partition([['a', 'b']]);
+          var split = p.sortAndSplit({a: 0, b: 0});
+          expect(split.image('a')).to.equal('a');
+          expect(split.image('b')).to.equal('a');
+        });
+        it('should split with "a" first', function() {
+          var p = new nishe.Partition([['a', 'b']]);
+          var split = p.sortAndSplit({a: 0, b: 1});
+          expect(split.image('a')).to.equal('a');
+          expect(split.image('b')).to.equal('b');
+        });
+        it('should split with "b" first', function() {
+          var p = new nishe.Partition([['a', 'b']]);
+          var split = p.sortAndSplit({a: 1, b: 0});
+          expect(split.image('a')).to.equal('b');
+          expect(split.image('b')).to.equal('a');
+        });
+      });
     });
   });
 });

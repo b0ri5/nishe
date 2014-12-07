@@ -122,6 +122,31 @@ define([], function() {
       }
       return cell;
     };
+
+    this.sortAndSplit = function(keys) {
+      var cells = [];
+      var indexes = this.indexes();
+      var comparator = function(a, b) {
+        return keys[a] - keys[b];
+      };
+      for (var i = 0; i < indexes.length; i++) {
+        var index = indexes[i];
+        var cell = this.cell(index);
+        cell.sort(comparator);
+        var keyStart = 0;
+        var key = keys[cell[0]];
+        for (var j = 1; j < cell.length; j++) {
+          var nextKey = keys[cell[j]];
+          if (nextKey != key) {
+            cells.push(cell.slice(keyStart, j));
+            keyStart = j;
+            key = nextKey;
+          }
+        }
+        cells.push(cell.slice(keyStart, cell.length));
+      }
+      return new Partition(cells);
+    };
   }
 
   return {
