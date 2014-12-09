@@ -1,5 +1,9 @@
 define([], function() {
   'use strict';
+  function refine(g, p) {
+    return p;
+  }
+
   function Graph(adjacencyList) {
     var nbhds = {};
 
@@ -123,6 +127,24 @@ define([], function() {
       return cell;
     };
 
+    this.cells = function() {
+      var cells = [];
+      var indexes = this.indexes();
+      for (var i = 0; i < indexes.length; i++) {
+        var index = indexes[i];
+        cells.push(this.cell(index));
+      }
+      return cells;
+    };
+
+    this.unorderedCells = function() {
+      var cells = this.cells();
+      cells.sort(function(a, b) {
+        return a[0] < b[0];
+      });
+      return cells;
+    };
+
     this.sortAndSplit = function(keys) {
       var cells = [];
       var indexes = this.indexes();
@@ -150,7 +172,8 @@ define([], function() {
   }
 
   return {
-    Partition: Partition,
-    Graph: Graph
+    refine: refine,
+    Graph: Graph,
+    Partition: Partition
   };
 });

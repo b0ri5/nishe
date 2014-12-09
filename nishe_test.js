@@ -6,6 +6,20 @@ define([
   'use strict';
   var expect = chai.expect;
   describe('nishe', function() {
+    describe('#refine', function() {
+      /*      it('should return [ a | b c ] for p3', function() {
+        var p = new nishe.Partition([['a', 'b', 'c', 'd']]);
+        var g = new nishe.Graph({a: ['b', 'c']});
+        var pr = nishe.refine(g, p);
+        expect(pr.unorderedCells()).to.have.deep.members([['a'], ['b', 'c']]);
+      });
+      it('should return [ a d | b c ] for p4', function() {
+        var p = new nishe.Partition([['a', 'b', 'c', 'd']]);
+        var g = new nishe.Graph({a: ['b'], b: ['c'], c: ['d']});
+        var pr = nishe.refine(g, p);
+        expect(pr.unorderedCells()).to.have.deep.members([['a'], ['b', 'c']]);
+      });*/
+    });
     describe('Graph', function() {
       describe('constructor', function() {
         it('should reject non-simple graphs', function() {
@@ -109,6 +123,42 @@ define([
           expect(p.cell(1)).to.have.members(['b', 'c']);
         });
       });
+      describe('#cells', function() {
+        var inputs = [
+          [['a']],
+          [['a', 'b']],
+          [['a', 'b'], ['c']],
+          [['a'], ['b', 'c']]
+        ];
+        var expectCells = function(cells) {
+          return function() {
+            expect(new nishe.Partition(cells).cells()).to.have.deep.members(cells);
+          };
+        };
+        for (var i = 0; i < inputs.length; i++) {
+          var cells = inputs[i];
+          var cellsString = JSON.stringify(cells);
+          it('should return ' + cellsString + ' for ' + cellsString, expectCells(cells));
+        }
+      });
+      describe('#unorderedCells', function() {
+        var cases = [
+          {input: [['a']], output: [['a']]},
+          {input: [['b'], ['a']], output: [['a'], ['b']]},
+          {input: [['c'], ['b'], ['a']], output: [['a'], ['b'], ['c']]}
+        ];
+        var expectCells = function(cse) {
+          return function() {
+            var p = new nishe.Partition(cse.input);
+            expect(p.unorderedCells()).to.have.deep.members(cse.output);
+          };
+        };
+        for (var i = 0; i < cases.length; i++) {
+          var cse = cases[i];
+          it('should return ' + JSON.stringify(cse.output) + ' for ' + JSON.stringify(cse.input), expectCells(cse));
+        }
+      });
+
       describe('#sortAndSplit', function() {
         it('should not modify partition', function() {
           var p = new nishe.Partition([['a', 'b']]);
