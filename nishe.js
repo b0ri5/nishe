@@ -4,14 +4,14 @@ define([], function() {
     return p;
   }
 
-  function Graph(adjacencyList) {
+  function Graph(adjacencyObj) {
     var nbhds = {};
 
     (function() {
-      var vertexes = Object.keys(adjacencyList);
+      var vertexes = Object.keys(adjacencyObj);
       for (var i = 0; i < vertexes.length; i++) {
         var u = vertexes[i];
-        var nbhrs = adjacencyList[u];
+        var nbhrs = adjacencyObj[u];
         for (var j = 0; j < nbhrs.length; j++) {
           var v = nbhrs[j];
           if (u == v) {
@@ -91,8 +91,7 @@ define([], function() {
       })();
     })();
 
-    this.image = function(x) {
-      return images[x];
+    this.image = function(x) { return images[x];
     };
 
     this.domain = function() {
