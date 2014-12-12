@@ -1,7 +1,35 @@
 define([], function() {
   'use strict';
   function refine(g, p) {
-    return p;
+    var activeIndexes = p.indexes();
+    var refined = p;
+    while (activeIndexes.length > 0) {
+      var activeIndex = activeIndexes.pop();
+      var activeCell = refined.cell(activeIndex);
+      var adjacencyCounts = {};
+      for (var i = 0; i < activeCell.length; i++) {
+        var u = activeCell[i];
+        var nbhd = g.nbhd(u);
+        for (var j = 0; j < nbhd.length; j++) {
+          var v = nbhd[j];
+          if (v in adjacencyCounts) {
+            adjacencyCounts[v]++;
+          } else {
+            adjacencyCounts[v] = 1;
+          }
+        }
+      }
+      var oldIndexes = refined.indexes();
+      refined = refined.sortAndSplit(adjacencyCounts);
+      var newIndexes = refined.indexes();
+      for (i = 0; i < newIndexes.length; i++) {
+        var index = newIndexes[i];
+        if (oldIndexes.indexOf(index) == -1) {
+          activeIndexes.push(index);
+        }
+      }
+    }
+    return refined;
   }
 
   function Graph(adjacencyObj) {
@@ -48,6 +76,12 @@ define([], function() {
       } else {
         throw new Error(u + ' is not a vertex');
       }
+    };
+
+    this.vertexes = function() {
+      var vertexes = Object.keys(nbhds);
+      vertexes.sort();
+      return vertexes;
     };
   }
 
@@ -165,6 +199,9 @@ define([], function() {
           }
         }
         cells.push(cell.slice(keyStart, cell.length));
+      }
+      if (cells.length == indexes.length) {
+        return this;
       }
       return new Partition(cells);
     };

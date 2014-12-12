@@ -7,18 +7,22 @@ define([
   var expect = chai.expect;
   describe('nishe', function() {
     describe('#refine', function() {
-      /*      it('should return [ a | b c ] for p3', function() {
-        var p = new nishe.Partition([['a', 'b', 'c', 'd']]);
-        var g = new nishe.Graph({a: ['b', 'c']});
-        var pr = nishe.refine(g, p);
-        expect(pr.unorderedCells()).to.have.deep.members([['a'], ['b', 'c']]);
-      });
-      it('should return [ a d | b c ] for p4', function() {
-        var p = new nishe.Partition([['a', 'b', 'c', 'd']]);
-        var g = new nishe.Graph({a: ['b'], b: ['c'], c: ['d']});
-        var pr = nishe.refine(g, p);
-        expect(pr.unorderedCells()).to.have.deep.members([['a'], ['b', 'c']]);
-      });*/
+      var cases = [
+        {g: {a: ['b'], b: ['c']}, p: [['a', 'c'], ['b']]},
+        {g: {a: ['b'], b: ['c'], c: ['d']}, p: [['a', 'd'], ['b', 'c']]},
+        {g: {a: ['b'], b: ['c'], c: ['d', 'e']}, p: [['a'], ['b'], ['c'], ['d', 'e']]}
+      ];
+      var expectation = function(cse) {
+        return function() {
+          var g = new nishe.Graph(cse.g);
+          var p = new nishe.Partition([g.vertexes()]);
+          expect(nishe.refine(g, p).unorderedCells()).to.have.deep.members(cse.p);
+        };
+      };
+      for (var i = 0; i < cases.length; i++) {
+        var cse = cases[i];
+        it('should return ' + JSON.stringify(cse.p) + ' for ' + JSON.stringify(cse.g), expectation(cse));
+      }
     });
     describe('Graph', function() {
       describe('constructor', function() {
