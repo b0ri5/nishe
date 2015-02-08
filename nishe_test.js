@@ -1,6 +1,6 @@
 define([
   'nishe',
-  'node_modules/chai/chai'], function(
+  'chai'], function(
     nishe,
     chai) {
   'use strict';

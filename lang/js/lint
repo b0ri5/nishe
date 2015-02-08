@@ -7,7 +7,7 @@ gjslint \
   --strict \
   --max_line_length 200 \
   --nojsdoc \
-  --exclude_directories node_modules third_party \
+  --exclude_directories node_modules \
   --recurse . \
   *.js
 
