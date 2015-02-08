@@ -1,8 +1,7 @@
 require.config({
   paths: {
     'chai': 'node_modules/chai/chai',
-    'mocha': 'node_modules/mocha/mocha',
-    'nishe': 'node_modules/nishe/nishe'
+    'mocha': 'node_modules/mocha/mocha'
   },
   shim: {
     'mocha': {
