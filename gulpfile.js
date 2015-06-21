@@ -6,10 +6,12 @@ var karma = require('karma').server;
 var ts = require('gulp-typescript');
 var tslint = require('gulp-tslint');
 
-var src = ['src/*.ts'];
+var jssrc = ['*.js', '*.json'];
+var tssrc = ['src/*.ts'];
+var allsrc = jssrc.concat(tssrc);
 
 gulp.task('tsc', function() {
-  return gulp.src(src)
+  return gulp.src(tssrc)
     .pipe(ts({
       module: 'amd',
       typescript: require('typescript')
@@ -17,15 +19,15 @@ gulp.task('tsc', function() {
     .pipe(gulp.dest('js'));
 });
 
-gulp.task('lint', function() {
-  return gulp.src(src)
+gulp.task('tslint', ['tsc'], function() {
+  return gulp.src(tssrc)
     .pipe(tslint())
     .pipe(tslint.report('verbose', {
       emitError: false
     }));
 });
 
-gulp.task('test', function(done) {
+gulp.task('test', ['tsc'], function(done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
@@ -39,7 +41,7 @@ gulp.task('tdd', function(done) {
 });
 
 gulp.task('jsfmt-verify', function() {
-  gulp.src(['*.js', '*.json'])
+  return gulp.src(jssrc)
     .pipe(jsbeautifier({
       config: '.jsbeautifyrc',
       mode: 'VERIFY_ONLY'
@@ -47,30 +49,30 @@ gulp.task('jsfmt-verify', function() {
 });
 
 gulp.task('jsfmt', function() {
-  gulp.src(['*.js', '*.json'])
+  return gulp.src(jssrc)
     .pipe(jsbeautifier({
       config: '.jsbeautifyrc'
-    }));
+    }))
+    .pipe(gulp.dest('.'));
 });
 
-gulp.task('tsfmt-verify', function() {
- var options = {
-     continueOnError: true
-               };
-  gulp.src('src/*.ts')
-    .pipe(exec('node_modules/typescript-formatter/bin/tsfmt <%= file.path %> | diff --ignore-blank-lines <%= file.path %> -', options))
+gulp.task('tsfmt-verify', ['tsc'], function() {
+  return gulp.src(tssrc)
+    .pipe(exec('node_modules/typescript-formatter/bin/tsfmt <%= file.path %> | diff --ignore-blank-lines <%= file.path %> -'))
     .pipe(exec.reporter());
 });
 
 gulp.task('tsfmt', function() {
-  gulp.src('src/*.ts')
+  return gulp.src(tssrc)
     .pipe(exec('node_modules/typescript-formatter/bin/tsfmt --replace <%= file.path %>'))
     .pipe(exec.reporter());
 });
 
-gulp.task('watch', ['tsc', 'lint'], function() {
-  gulp.watch(src, ['tsc', 'lint']);
+gulp.task('watch', function() {
+  gulp.watch(allsrc, ['default']);
 });
 
-gulp.task('fmt', ['jsfmt', 'tsfmt'], function() {
-});
+gulp.task('fmt', ['jsfmt', 'tsfmt'], function() {});
+gulp.task('fmt-verify', ['jsfmt-verify', 'tsfmt-verify'], function() {});
+
+gulp.task('default', ['test', 'fmt-verify', 'tslint'], function() {});

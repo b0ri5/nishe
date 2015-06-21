@@ -15,21 +15,23 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test-main.js',
-      {pattern: 'js/*.js', included: false},
-      {pattern: 'node_modules/immutable/dist/immutable.js', included: false}
+      'test-main.js', {
+        pattern: 'js/*.js',
+        included: false
+      }, {
+        pattern: 'node_modules/immutable/dist/immutable.js',
+        included: false
+      }
     ],
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use

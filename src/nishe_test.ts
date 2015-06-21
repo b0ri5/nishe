@@ -10,5 +10,10 @@ describe('Partition', () => {
       var p = new nishe.Partition(Immutable.Map({ 'a': 'a' }));
       expect(p.domain().toArray()).toEqual(['a']);
     });
+    it('throws if not a partition', () => {
+      expect(() => {
+        new nishe.Partition(Immutable.Map({ 'a': 'b' }));
+      }).toThrowError('The value b is not a key');
+    });
   });
 });
