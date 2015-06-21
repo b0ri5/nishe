@@ -6,7 +6,6 @@
     "url": "https://github.com/b0ri5/nishe"
   },
   "devDependencies": {
-    "gulp": "~3.8.11",
     "gulp-tsfmt": "0.0.3",
     "gulp-typescript": "~2.7.5",
     "gulp-tslint": "~3.0.1-beta",
