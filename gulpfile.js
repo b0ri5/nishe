@@ -14,6 +14,7 @@ gulp.task('tsc', function() {
   return gulp.src(tssrc)
     .pipe(ts({
       module: 'amd',
+      noEmitOnError: true,
       typescript: require('typescript')
     }))
     .pipe(gulp.dest('js'));
