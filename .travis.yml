@@ -3,4 +3,4 @@ before_script:
     - npm install -g gulp
     - npm install -g tsd
     - tsd install jasmine
-script: gulp
+script: gulp ci

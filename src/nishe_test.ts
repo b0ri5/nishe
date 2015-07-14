@@ -7,12 +7,12 @@ import Immutable = require('immutable');
 describe('Partition', () => {
   describe('domain', () => {
     it('matches constructor', () => {
-      var p = new nishe.Partition(Immutable.Map({ 'a': 'a' }));
+      var p = new nishe.Partition(Immutable.Map({'a': 'a'}));
       expect(p.domain().toArray()).toEqual(['a']);
     });
     it('throws if not a partition', () => {
       expect(() => {
-        new nishe.Partition(Immutable.Map({ 'a': 'b' }));
+        new nishe.Partition(Immutable.Map({'a': 'b'}));
       }).toThrowError('The value b is not a key');
     });
   });
