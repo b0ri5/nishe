@@ -62,3 +62,4 @@ gulp.task('enforce-format', function() {
 });
 
 gulp.task('default', ['test', 'check-format', 'jsonfmt-verify', 'tslint'], function() {});
+gulp.task('ci', ['test', 'enforce-format', 'jsonfmt-verify', 'tslint'], function() {});
