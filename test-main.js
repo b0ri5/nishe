@@ -10,8 +10,7 @@ Object.keys(window.__karma__.files)
     });
 
 require.config({
-  paths: {
-    'immutable': 'node_modules/immutable/dist/immutable', 'nishe': 'js/nishe'},
+  paths: {'immutable': 'node_modules/immutable/dist/immutable', 'nishe': 'js/nishe'},
   // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base',
 
