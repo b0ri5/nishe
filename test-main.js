@@ -1,18 +1,16 @@
 var allTestFiles = [];
 var TEST_REGEXP = /(spec|test)\.js$/i;
 
-Object.keys(window.__karma__.files).forEach(function(file) {
-  if (TEST_REGEXP.test(file)) {
-    // Normalize paths to RequireJS module names.
-    allTestFiles.push(file);
-  }
-});
+Object.keys(window.__karma__.files)
+    .forEach(function(file) {
+      if (TEST_REGEXP.test(file)) {
+        // Normalize paths to RequireJS module names.
+        allTestFiles.push(file);
+      }
+    });
 
 require.config({
-  paths: {
-    'immutable': 'node_modules/immutable/dist/immutable',
-    'nishe': 'js/nishe'
-  },
+  paths: {'immutable': 'node_modules/immutable/dist/immutable', 'nishe': 'js/nishe'},
   // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base',
 
