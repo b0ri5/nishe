@@ -24,7 +24,8 @@
     "requirejs": "~2.1.18",
     "gulp": "~3.9.0",
     "clang-format": "~1.0.28",
-    "gulp-clang-format": "~1.0.21"
+    "gulp-clang-format": "~1.0.21",
+    "gulp-tsd": "0.0.4"
   },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
