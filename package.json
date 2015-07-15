@@ -6,25 +6,25 @@
     "url": "https://github.com/b0ri5/nishe"
   },
   "devDependencies": {
-    "gulp-tsfmt": "0.0.3",
+    "gulp-tsfmt": "~0.0.3",
     "gulp-typescript": "~2.7.8",
-    "gulp-tslint": "~3.1.0-beta",
     "karma": "~0.12.37",
     "karma-phantomjs-launcher": "~0.2.0",
     "jasmine-core": "~2.3.4",
     "karma-jasmine": "~0.3.6",
     "karma-chrome-launcher": "~0.2.0",
-    "gulp-jsbeautifier": "1.0.1",
     "typescript-formatter": "~0.4.0",
     "gulp-exec": "~2.1.1",
     "immutable": "~3.7.4",
     "karma-requirejs": "~0.2.2",
-    "typescript": "1.5.0-beta",
     "requirejs": "~2.1.19",
     "gulp": "~3.9.0",
     "clang-format": "~1.0.28",
     "gulp-clang-format": "~1.0.21",
-    "gulp-tsd": "0.0.4"
+    "gulp-jsbeautifier": "~1.0.1",
+    "gulp-tslint": "~3.1.0-beta",
+    "gulp-tsd": "0.0.4",
+    "typescript": "~1.5.0-beta"
   },
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
