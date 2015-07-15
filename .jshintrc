@@ -21,7 +21,10 @@
     "require": false,
 
     // svg.js
-    "SVG": false
+    "SVG": false,
+
+    // node.js
+    "module": false
   },
   "immed": true,
   "latedef": true,

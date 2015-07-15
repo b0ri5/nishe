@@ -1,4 +1,5 @@
 language: node_js
-install: 
-  - lang/js/install
-  - npm install
+before_script:
+    - npm install -g gulp
+script: gulp ci
+sudo: false
