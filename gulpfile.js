@@ -6,6 +6,7 @@ var gulpFormat = require('gulp-clang-format');
 var jsbeautifier = require('gulp-jsbeautifier');
 var karma = require('karma').server;
 var ts = require('gulp-typescript');
+var tsd = require('gulp-tsd');
 var tslint = require('gulp-tslint');
 
 var jsSrc = ['*.js'];
@@ -59,6 +60,10 @@ gulp.task('enforce-format', function() {
     console.log("See https://github.com/angular/angular/blob/master/DEVELOPER.md#formatting");
     process.exit(1);
   });
+});
+
+gulp.task('tsd', function(cb) {
+  tsd({command: 'reinstall', config: 'tsd.json', latest: true}, cb);
 });
 
 gulp.task('default', ['test', 'check-format', 'jsonfmt-verify', 'tslint'], function() {});
